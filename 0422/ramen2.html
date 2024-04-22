@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>インスタントラーメン</title>
+</head>
+
+<body>
+    <p id="result">
+
+    </p>
+    <script>
+        const demaeicchou = {
+            name: "出前一丁",
+            soup: "醤油",
+            //メソッド
+            preview: function () {
+                const area = document.querySelector("#result");
+                area.innerHTML = `${this.name}は、${this.soup}ラーメンです。`;
+            },
+        };
+
+        demaeicchou.preview();
+
+        //醤油を上書き
+        demaeicchou.soup = "とんこつ";
+
+        //previewメソッドを上書き
+        demaeicchou.preview = function () {
+            const area = document.querySelector("#result");
+            area.innerHTML = `${this.name}は、${this.soup}ラーメンではありません。`
+        }
+
+        //出前一丁を消す
+        delete demaeicchou.name;//undefinedになる
+
+        //メソッドの再実行
+        demaeicchou.preview();
+
+
+        //クラス＝クラスはオブジェクトの設計図にあたり、クラスを定義すれば、同じ構造を持つオブジェクトをいくつも作ることができる。複数のオブジェクトを作成するための、ひな形としても利用できる
+        //型
+
+        //スーパークラス
+
+        class InstantNoodle {
+            //静的プロパティ
+            static TYPE = "インスタンスラーメン";
+
+            //静的メソッド
+            static maiking() {
+                return `<p>${InstantNoodle.TYPE}は、鍋で作ります</p>`;
+            };
+
+            //オブジェクトではなくテンプレートリテラル`${変数・値}`をそのまま入れることができる
+
+            //処理などを書く
+            //コンストラクタ(中身の構造)
+            constructor(ramen, taste) {
+                this.name = ramen;
+                this.soup = taste;
+            }
+
+
+
+            descript() {
+                return `<p>${this.name}は${this.soup}味です</p>`
+            }
+
+        }
+
+
+
+
+        const ramens = [];
+        ramens.push(new InstantNoodle("サッポロ一番塩", "塩"));
+        ramens.push(new InstantNoodle("出前一丁", "醤油"));
+        ramens.push(new InstantNoodle("うまかっちゃん", "とんこつ"))
+        console.log(ramens);
+        //pushは配列に値を入れる
+
+        //ramenの中にramensの要素(値)が入る
+        ramens.forEach(ramen => {
+            //lengthを書かなくても要素の数だけ回る
+            document.body.insertAdjacentHTML("beforeend", ramen.descript());
+        });
+
+        document.body.insertAdjacentHTML("beforeend", InstantNoodle.maiking());
+        console.log(InstantNoodle.TYPE);
+
+        class Maker extends InstantNoodle {
+            constructor(ramen, taste, company) {
+                super(ramen, taste);
+                this.maker = company;
+            }
+            makerDescript() {
+                return `<p>販売元は、${this.maker}です。</p>`;
+            }
+            //同じメソッド名で、上書き（オーバーライド）
+            descript() {
+                return `<p>${this.name} 「${this.soup}」のメーカーは、${this.maker}です。</p>`;
+            }
+
+        }
+
+        //サブクラスのインスタンス化(オブジェクト化)
+        const maker = new Maker("マルちゃん正麺", "しょうゆ", "東洋水産");
+
+        //サブクラスのメソッド
+        document.body.insertAdjacentHTML("beforeend", maker.makerDescript());
+        console.log(maker.name);
+        //スーパークラスのメソッドも利用できる
+        document.body.insertAdjacentHTML("beforeend", maker.descript());
+
+
+        console.dir(document.body)
+
+    </script>
+
+</body>
+
+</html>
