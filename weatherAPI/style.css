@@ -1,0 +1,38 @@
+main {
+    background-size: cover;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+}
+
+.weather {
+    width: 30%;
+}
+
+.date {
+    position: relative;
+    width: 40%;
+    justify-content: flex-end;
+}
+
+.time {
+    top: 55px;
+    left: 35px;
+    position: absolute;
+}
+
+.datebg {
+    width: 100%;
+}
+
+.cat {
+    height: 730px;
+
+}
+
+.inner {
+    width: 250px;
+    margin: 0 auto;
+}
